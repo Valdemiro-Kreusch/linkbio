@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Livros – Valdemiro Kreusch</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1F3A;--navy2:#112847;--navy3:#1a3558;
+  --gold:#C9A84C;--gold-lt:#E8C97A;
+  --white:#FFFFFF;--muted:rgba(255,255,255,.45);
+}
+body{
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  background:linear-gradient(145deg,#071628 0%,#0B1F3A 55%,#0d2545 100%);
+  color:var(--white);
+}
+.top-bar{width:100%;height:4px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-lt),var(--gold),transparent);}
+
+/* ── HEADER ── */
+header{
+  max-width:800px;margin:0 auto;
+  padding:36px 24px 0;
+  display:flex;flex-direction:column;align-items:center;
+  animation:up .7s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.back{
+  align-self:flex-start;
+  color:var(--gold);font-size:13px;font-weight:600;
+  text-decoration:none;letter-spacing:.5px;
+  display:flex;align-items:center;gap:6px;
+  opacity:.8;transition:opacity .2s;margin-bottom:28px;
+}
+.back:hover{opacity:1}
+.header-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:700;
+  color:var(--white);text-align:center;line-height:1.2;
+}
+.header-sub{
+  margin-top:8px;font-size:11px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;color:var(--gold);
+}
+.rule{width:48px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:24px auto 0;border-radius:2px;}
+
+/* ── GRID ── */
+.grid{
+  max-width:800px;margin:0 auto;
+  padding:40px 24px 60px;
+  display:flex;flex-direction:column;gap:40px;
+}
+
+/* ── CARD ── */
+.card{
+  display:flex;gap:28px;align-items:flex-start;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(201,168,76,.15);
+  border-radius:10px;padding:28px;
+  animation:up .7s cubic-bezier(.22,1,.36,1) both;
+  transition:border-color .3s,box-shadow .3s;
+}
+.card:hover{border-color:rgba(201,168,76,.35);box-shadow:0 8px 32px rgba(0,0,0,.3);}
+.card:nth-child(2){animation-delay:.1s}
+.card:nth-child(3){animation-delay:.2s}
+
+/* capa */
+.cover-wrap{
+  flex-shrink:0;width:140px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  cursor:pointer;
+}
+.cover{
+  width:140px;height:200px;
+  border-radius:6px;object-fit:cover;
+  background:var(--navy3);
+  border:2px solid rgba(201,168,76,.2);
+  display:block;transition:transform .3s,box-shadow .3s;
+  box-shadow:4px 6px 20px rgba(0,0,0,.4);
+}
+.cover-wrap:hover .cover{transform:scale(1.03) rotate(-1deg);box-shadow:6px 10px 28px rgba(0,0,0,.5);}
+.cover-hint{font-size:10px;color:var(--muted);text-align:center;letter-spacing:.3px;}
+
+/* info */
+.info{flex:1;display:flex;flex-direction:column;gap:12px;}
+.year{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.book-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;line-height:1.2;color:var(--white);}
+.desc{font-size:13px;line-height:1.75;color:rgba(255,255,255,.65);}
+.btn-esgotado{
+  margin-top:6px;align-self:flex-start;
+  display:flex;align-items:center;gap:8px;
+  padding:12px 22px;border-radius:6px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.3);
+  font-family:'Inter',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.3px;
+  cursor:not-allowed;pointer-events:none;
+}
+.btn-buy{
+  margin-top:6px;align-self:flex-start;
+  display:flex;align-items:center;gap:8px;
+  padding:12px 22px;border-radius:6px;
+  background:var(--navy2);border:1px solid rgba(201,168,76,.3);
+  color:var(--white);font-family:'Inter',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.3px;
+  cursor:pointer;text-decoration:none;
+  transition:all .3s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 2px 12px rgba(0,0,0,.25);
+}
+.btn-buy:hover{background:linear-gradient(120deg,var(--gold),var(--gold-lt));color:var(--navy);border-color:transparent;transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.3);}
+
+/* ── MODAL QR ── */
+.modal-bg{
+  display:none;position:fixed;inset:0;z-index:100;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;
+}
+.modal-bg.open{display:flex;}
+.modal{
+  background:var(--navy2);border:1px solid rgba(201,168,76,.3);
+  border-radius:12px;padding:36px 32px;
+  max-width:340px;width:90%;text-align:center;
+  animation:pop .35s cubic-bezier(.22,1,.36,1) both;
+  position:relative;
+}
+@keyframes pop{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+.modal-close{
+  position:absolute;top:14px;right:16px;
+  background:none;border:none;color:var(--muted);
+  font-size:18px;cursor:pointer;transition:color .2s;
+}
+.modal-close:hover{color:var(--white);}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.modal-sub{font-size:11px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;}
+.qr-wrap{
+  width:180px;height:180px;margin:0 auto 20px;
+  background:var(--white);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;cursor:pointer;border:3px solid rgba(201,168,76,.3);
+  position:relative;
+}
+.qr-wrap img{width:100%;height:100%;object-fit:contain;}
+.qr-hint{font-size:10px;color:var(--muted);margin-top:-10px;margin-bottom:16px;}
+.modal-note{font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;}
+
+/* ── FOOTER ── */
+footer{text-align:center;font-size:11px;color:rgba(255,255,255,.25);padding:0 0 32px;line-height:1.9;}
+footer a{color:var(--gold);text-decoration:none;opacity:.7}
+footer a:hover{opacity:1}
+
+/* ── RESPONSIVE ── */
+@media(max-width:540px){
+  .card{flex-direction:column;align-items:center;text-align:center;}
+  .info{align-items:center;}
+  .btn-buy{align-self:center;}
+  .cover-wrap{width:160px;}
+  .cover{width:160px;height:228px;}
+  .header-title{font-size:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<!-- HEADER -->
+<header>
+  <a class="back" href="index.html">
+    <i class="fa-solid fa-arrow-left"></i> Voltar
+  </a>
+  <h1 class="header-title">Meus Livros</h1>
+  <p class="header-sub">Valdemiro Kreusch</p>
+  <div class="rule"></div>
+</header>
+
+<!-- GRID -->
+<div class="grid">
+
+  <!-- LIVRO 1 -->
+  <div class="card">
+    <div class="cover-wrap" onclick="triggerCover(0)" title="Clique para carregar a capa">
+      <img class="cover" id="cover0"
+        src="https://via.placeholder.com/140x200/112847/C9A84C?text=Capa"
+        alt="Cartas de Gestão"/>
+      <span class="cover-hint">📷 Clique para carregar a capa</span>
+    </div>
+    <div class="info">
+      <span class="year">2018</span>
+      <h2 class="book-title">Cartas de Gestão a um Advogado Empreendedor</h2>
+      <p class="desc">O guia completo de estratégia para escritórios jurídicos. Cartas diretas e provocadoras sobre gestão, liderança e posicionamento — para o advogado que quer transformar seu escritório em um negócio de verdade, com propósito e resultado.</p>
+      <span class="btn-buy btn-esgotado">
+        <i class="fa-solid fa-ban"></i> Esgotado
+      </span>
+    </div>
+  </div>
+
+  <!-- LIVRO 2 -->
+  <div class="card">
+    <div class="cover-wrap" onclick="triggerCover(1)" title="Clique para carregar a capa">
+      <img class="cover" id="cover1"
+        src="https://via.placeholder.com/140x200/112847/C9A84C?text=Capa"
+        alt="O Advogado Gerador de Negócios"/>
+      <span class="cover-hint">📷 Clique para carregar a capa</span>
+    </div>
+    <div class="info">
+      <span class="year">2025</span>
+      <h2 class="book-title">O Advogado Gerador de Negócios</h2>
+      <p class="desc">Manual de um dealmaker jurídico. Como construir uma carteira de clientes sólida, gerar negócios de forma consistente e se posicionar como referência no mercado — com método, ética e estratégia aplicada à realidade do advogado brasileiro.</p>
+      <a class="btn-buy" href="#" onclick="openModal('O Advogado Gerador de Negócios');return false;">
+        <i class="fa-solid fa-qrcode"></i> Adquirir
+      </a>
+    </div>
+  </div>
+
+  <!-- LIVRO 3 -->
+  <div class="card">
+    <div class="cover-wrap" onclick="triggerCover(2)" title="Clique para carregar a capa">
+      <img class="cover" id="cover2"
+        src="https://via.placeholder.com/140x200/112847/C9A84C?text=Capa"
+        alt="O Advogado C-Level"/>
+      <span class="cover-hint">📷 Clique para carregar a capa</span>
+    </div>
+    <div class="info">
+      <span class="year">2026</span>
+      <h2 class="book-title">O Advogado C-Level</h2>
+      <p class="desc">Liderança. Estratégia. Valor. Por que alguns advogados prosperam enquanto outros apenas sobrevivem? Um guia definitivo sobre liderança estratégica, Legal Operations e transformação digital para o advogado que quer operar no mais alto nível.</p>
+      <a class="btn-buy" href="#" onclick="openModal('O Advogado C-Level');return false;">
+        <i class="fa-solid fa-qrcode"></i> Adquirir
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 · Valdemiro Kreusch</p>
+  <p><a href="index.html">← Voltar ao início</a></p>
+</footer>
+
+<!-- MODAL QR -->
+<div class="modal-bg" id="modalBg" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    <p class="modal-sub">Adquira agora</p>
+    <h3 class="modal-title" id="modalTitle">Livro</h3>
+    <div style="margin:20px 0 6px">
+      <div class="qr-wrap" onclick="triggerQR()" title="Clique para carregar o QR Code">
+        <img id="qrImg"
+          src="https://via.placeholder.com/180/ffffff/0B1F3A?text=QR+Code"
+          alt="QR Code de compra"/>
+      </div>
+      <p class="qr-hint">📷 Clique no QR para carregar sua imagem</p>
+    </div>
+    <p class="modal-note">Aponte a câmera do seu celular para o QR Code acima para acessar a página de compra.</p>
+  </div>
+</div>
+
+<!-- INPUTS ocultos -->
+<input type="file" id="qrInput"    accept="image/*" style="display:none"/>
+<input type="file" id="cover0inp" accept="image/*" style="display:none"/>
+<input type="file" id="cover1inp" accept="image/*" style="display:none"/>
+<input type="file" id="cover2inp" accept="image/*" style="display:none"/>
+
+<script>
+// ── Modal ──
+function openModal(title){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBg').classList.add('open');
+}
+function closeModal(){ document.getElementById('modalBg').classList.remove('open'); }
+function closeModalOutside(e){ if(e.target===document.getElementById('modalBg')) closeModal(); }
+
+// ── QR upload ──
+document.getElementById('qrInput').addEventListener('change',function(){
+  if(!this.files[0]) return;
+  document.getElementById('qrImg').src = URL.createObjectURL(this.files[0]);
+});
+function triggerQR(){ document.getElementById('qrInput').click(); }
+
+// ── Capas upload ──
+function triggerCover(i){ document.getElementById('cover'+i+'inp').click(); }
+[0,1,2].forEach(i=>{
+  document.getElementById('cover'+i+'inp').addEventListener('change',function(){
+    if(!this.files[0]) return;
+    document.getElementById('cover'+i).src = URL.createObjectURL(this.files[0]);
+  });
+});
+
+// ── Tenta carregar imagens enviadas no chat ──
+(async()=>{
+  const covers = [
+    ['cover0',['image2.jpg','livro1.jpg','cartas.jpg','cartas-gestao.jpg']],
+    ['cover1',['image4.jpg','livro2.jpg','gerador.jpg','advogado-gerador.jpg']],
+    ['cover2',['image3.jpg','livro3.jpg','clevel.jpg','advogado-clevel.jpg']],
+  ];
+  const qrNames = ['image1.jpg','qr.jpg','qrcode.jpg','qr-code.jpg'];
+
+  for(const [id,names] of covers){
+    for(const fn of names){
+      try{
+        const buf = await window.fs.readFile(fn);
+        document.getElementById(id).src = URL.createObjectURL(new Blob([buf],{type:'image/jpeg'}));
+        break;
+      }catch(e){}
+    }
+  }
+  for(const fn of qrNames){
+    try{
+      const buf = await window.fs.readFile(fn);
+      document.getElementById('qrImg').src = URL.createObjectURL(new Blob([buf],{type:'image/jpeg'}));
+      break;
+    }catch(e){}
+  }
+})();
+</script>
+</body>
+</html>
